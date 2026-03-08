@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>С Днём Рождения!</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+background: linear-gradient(135deg,#ff7eb3,#ff758c,#ff9a9e);
+color:white;
+overflow:hidden;
+}
+
+h1{
+font-size:70px;
+margin-top:120px;
+animation: glow 2s infinite alternate;
+}
+
+p{
+font-size:28px;
+}
+
+button{
+padding:18px 40px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:white;
+color:#ff4b7d;
+cursor:pointer;
+margin-top:30px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 30px white;}
+}
+
+.heart{
+position:absolute;
+font-size:22px;
+animation: fall linear infinite;
+}
+
+@keyframes fall{
+0%{ transform:translateY(-10vh);}
+100%{ transform:translateY(110vh);}
+}
+
+.message{
+display:none;
+font-size:35px;
+margin-top:40px;
+animation: pop 1s;
+}
+
+@keyframes pop{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+.fire{
+position:absolute;
+font-size:25px;
+pointer-events:none;
+transition:1.5s;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎂 С Днём Рождения, Мама! 🎂</h1>
+
+<p>
+Ты самая лучшая мама на свете ❤️  
+Спасибо за всё что ты для меня делаешь!
+</p>
+
+<button onclick="startSurprise()">🎁 Нажми на подарок</button>
+
+<div class="message" id="msg">
+💖 Я тебя очень люблю! 💖
+</div>
+
+<script>
+
+function startSurprise(){
+document.getElementById("msg").style.display="block"
+firework()
+}
+
+function firework(){
+
+for(let i=0;i<120;i++){
+
+let p=document.createElement("div")
+p.className="fire"
+p.innerHTML="✨"
+
+p.style.left="50%"
+p.style.top="50%"
+
+let angle=Math.random()*360
+let distance=Math.random()*400
+
+document.body.appendChild(p)
+
+setTimeout(()=>{
+p.style.transform=
+`translate(${Math.cos(angle)*distance}px,
+${Math.sin(angle)*distance}px)`
+p.style.opacity=0
+},10)
+
+setTimeout(()=>{
+p.remove()
+},1600)
+
+}
+
+}
+
+function createHeart(){
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="💖"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.animationDuration=(Math.random()*3+3)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},6000)
+
+}
+
+setInterval(createHeart,300)
+
+</script>
+
+</body>
+</html>
