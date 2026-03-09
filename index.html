@@ -1,1 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>С Днём Рождения, Мама!</title>
 
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+color:white;
+overflow-x:hidden;
+background:linear-gradient(-45deg,#ff7eb3,#ff758c,#ff9a9e,#ff6a88);
+background-size:400% 400%;
+animation:bg 10s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+h1{
+font-size:70px;
+margin-top:100px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 40px white;}
+}
+
+p{
+font-size:28px;
+max-width:900px;
+margin:auto;
+}
+
+button{
+padding:18px 40px;
+font-size:22px;
+border:none;
+border-radius:20px;
+background:white;
+color:#ff4b7d;
+cursor:pointer;
+margin-top:30px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.message{
+display:none;
+font-size:28px;
+margin-top:40px;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+animation:pop 1s;
+}
+
+@keyframes pop{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
+}
+
+/* галерея */
+
+.gallery{
+display:none;
+margin-top:60px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+padding-bottom:80px;
+}
+
+.photo{
+width:260px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(255,75,125,0.8);
+opacity:0;
+transform:scale(0.8);
+transition:1s;
+}
+
+.photo.show{
+opacity:1;
+transform:scale(1);
+}
+
+/* адаптация для телефона */
+
+.mobile .photo{
+width:180px;
+}
+
+.mobile h1{
+font-size:40px;
+}
+
+.mobile p{
+font-size:22px;
+}
+
+/* сердечки */
+
+.heart{
+position:fixed;
+top:-50px;
+font-size:24px;
+pointer-events:none;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+
+/* фейерверк */
+
+.fire{
+position:fixed;
+font-size:26px;
+pointer-events:none;
+transition:1.6s;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎂 С Днём Рождения, Мама! 🎂</h1>
+
+<p>
+Ты самая лучшая мама на свете ❤️  
+Спасибо за всё, что ты для меня делаешь!
+</p>
+
+<button onclick="startSurprise()">🎁 Нажми на подарок</button>
+
+<div class="message" id="msg">
+
+За все мои 15 лет мои мнения почти не менялись.  
+Я понимаю, как сильно дорожу своей мамой.
+
+Иногда мы можем спорить или думать по-разному,  
+но это никогда не меняет самого главного —  
+я очень тебя люблю и ценю всё, что ты для меня сделала.
+
+Как говорится:  
+денег в мире может быть много,  
+но я у мамы такой один ❤️
+
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+
+/* определение телефона */
+
+function detectDevice(){
+
+if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+document.body.classList.add("mobile")
+}
+
+}
+
+detectDevice()
+
+/* список фото */
+
+const photos=[
+
+"https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_12_2026-03-09_01-37-57.jpg",
+"https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_13_2026-03-09_01-37-57.jpg",
+"https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_18_2026-03-09_01-37-57.jpg",
+"https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_20_2026-03-09_01-37-57.jpg",
+"https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_4_2026-03-09_01-37-57.jpg"
+
+]
+
+/* создание галереи */
+
+function createGallery(){
+
+let gallery=document.getElementById("gallery")
+
+photos.forEach((url,i)=>{
+
+let img=document.createElement("img")
+img.src=url
+img.className="photo"
+
+gallery.appendChild(img)
+
+setTimeout(()=>{
+img.classList.add("show")
+},i*400)
+
+})
+
+}
+
+/* запуск сюрприза */
+
+function startSurprise(){
+
+document.getElementById("msg").style.display="block"
+
+document.getElementById("gallery").style.display="flex"
+
+createGallery()
+
+firework()
+
+heartRain()
+
+}
+
+/* большой салют */
+
+function firework(){
+
+for(let i=0;i<200;i++){
+
+let p=document.createElement("div")
+p.className="fire"
+p.innerHTML="✨"
+
+p.style.left="50%"
+p.style.top="40%"
+
+let angle=Math.random()*360
+let distance=Math.random()*600
+
+document.body.appendChild(p)
+
+setTimeout(()=>{
+
+p.style.transform=
+`translate(${Math.cos(angle)*distance}px,
+${Math.sin(angle)*distance}px)`
+
+p.style.opacity=0
+
+},10)
+
+setTimeout(()=>p.remove(),1700)
+
+}
+
+}
+
+/* дождь сердец */
+
+function heartRain(){
+
+let interval=setInterval(()=>{
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="💖"
+
+heart.style.left=Math.random()*100+"vw"
+
+heart.style.animationDuration=(Math.random()*3+4)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),7000)
+
+},200)
+
+setTimeout(()=>clearInterval(interval),8000)
+
+}
+
+</script>
+
+</body>
+</html>
