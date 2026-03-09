@@ -5,85 +5,107 @@
 <title>С Днём Рождения, Мама!</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  background: radial-gradient(circle at center, #ff9a9e, #ff7eb3, #ff758c);
-  overflow: hidden;
-  color: white;
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#ff7eb3,#ff758c,#ff9a9e);
+color:white;
+overflow-x:hidden;
 }
 
-h1 {
-  font-size: 80px;
-  margin-top: 100px;
-  animation: glow 2s infinite alternate;
-  text-shadow: 0 0 20px #fff, 0 0 30px #ff9a9e, 0 0 40px #ff4b7d;
+h1{
+font-size:70px;
+margin-top:100px;
+animation:glow 2s infinite alternate;
 }
 
-p {
-  font-size: 30px;
-  margin: 20px 20px;
-  line-height: 1.5;
-  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+p{
+font-size:28px;
+max-width:800px;
+margin:auto;
+line-height:1.5;
 }
 
-button {
-  padding: 20px 50px;
-  font-size: 24px;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(45deg, #ff7eb3, #ff758c);
-  color: white;
-  cursor: pointer;
-  margin-top: 30px;
-  transition: 0.3s;
-  box-shadow: 0 0 20px rgba(255,75,125,0.7);
+button{
+padding:18px 40px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:white;
+color:#ff4b7d;
+cursor:pointer;
+margin-top:30px;
+transition:0.3s;
 }
 
-button:hover {
-  transform: scale(1.2) rotate(-5deg);
-  box-shadow: 0 0 40px rgba(255,75,125,1);
+button:hover{
+transform:scale(1.1);
 }
 
-@keyframes glow {
-  0% { text-shadow: 0 0 10px #fff, 0 0 20px #ff4b7d; }
-  100% { text-shadow: 0 0 30px #fff, 0 0 60px #ff4b7d; }
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 30px white;}
 }
 
-.heart {
-  position: absolute;
-  font-size: 26px;
-  animation: fall linear infinite;
-  pointer-events: none;
+.message{
+display:none;
+font-size:28px;
+margin-top:40px;
+animation:pop 1s;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
 }
 
-@keyframes fall {
-  0% { transform: translateY(-10vh) scale(0.5); opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { transform: translateY(110vh) scale(1); opacity: 0; }
+@keyframes pop{
+0%{transform:scale(0)}
+100%{transform:scale(1)}
 }
 
-.message {
-  display: none;
-  font-size: 40px;
-  margin-top: 40px;
-  animation: pop 1s;
-  text-shadow: 0 0 20px #fff;
+.heart{
+position:absolute;
+font-size:22px;
+animation:fall linear infinite;
+pointer-events:none;
 }
 
-@keyframes pop {
-  0% { transform: scale(0); }
-  100% { transform: scale(1); }
+@keyframes fall{
+0%{ transform:translateY(-10vh);}
+100%{ transform:translateY(110vh);}
 }
 
-.fire {
-  position: absolute;
-  font-size: 28px;
-  pointer-events: none;
-  transition: 1.5s;
-  user-select: none;
+.fire{
+position:absolute;
+font-size:25px;
+pointer-events:none;
+transition:1.5s;
 }
+
+.gallery{
+display:none;
+margin-top:50px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+}
+
+.photo{
+width:260px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,75,125,0.7);
+opacity:0;
+transform:scale(0.8);
+transition:1s;
+}
+
+.photo.show{
+opacity:1;
+transform:scale(1);
+}
+
 </style>
 </head>
 
@@ -92,61 +114,125 @@ button:hover {
 <h1>🎂 С Днём Рождения, Мама! 🎂</h1>
 
 <p>
-Ты самая лучшая мама на свете ❤️<br>
+Ты самая лучшая мама на свете ❤️  
 Спасибо за всё, что ты для меня делаешь!
 </p>
 
 <button onclick="startSurprise()">🎁 Нажми на подарок</button>
 
-<div class="message" id="msg">💖 Я тебя очень люблю! 💖</div>
+<div class="message" id="msg">
+
+За все мои 15 лет мои мнения почти не менялись.  
+Я всегда понимал и понимаю, как сильно дорожу своей мамой.  
+
+Иногда мы можем спорить или думать по-разному,  
+но это никогда не меняет самого главного —  
+я очень тебя люблю и ценю всё, что ты для меня сделала.  
+
+Как говорится:  
+денег в мире может быть много,  
+но я у мамы такой один ❤️
+
+</div>
+
+<div class="gallery" id="gallery">
+
+<img class="photo" src="https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_12_2026-03-09_01-37-57.jpg">
+
+<!-- сюда вставь остальные фото -->
+
+<img class="photo" src="https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_13_2026-03-09_01-37-57.jpg">
+
+<img class="photo" src="https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_18_2026-03-09_01-37-57.jpg">
+
+<img class="photo" src="https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_20_2026-03-09_01-37-57.jpg">
+
+<img class="photo" src="https://raw.githubusercontent.com/dddadads/birthday-photos/main/photo_4_2026-03-09_01-37-57.jpg">
+
+</div>
 
 <script>
-function startSurprise() {
-  document.getElementById('msg').style.display = 'block';
-  fireworks();
-  sparkleHearts();
+
+function startSurprise(){
+document.getElementById("msg").style.display="block"
+
+firework()
+
+showPhotos()
+
+sparkleHearts()
 }
 
-function fireworks() {
-  for (let i = 0; i < 150; i++) {
-    let f = document.createElement('div');
-    f.className = 'fire';
-    f.innerHTML = '✨';
+function firework(){
 
-    f.style.left = '50%';
-    f.style.top = '50%';
+for(let i=0;i<150;i++){
 
-    let angle = Math.random() * 2 * Math.PI;
-    let distance = Math.random() * 500;
+let p=document.createElement("div")
+p.className="fire"
+p.innerHTML="✨"
 
-    document.body.appendChild(f);
+p.style.left="50%"
+p.style.top="50%"
 
-    setTimeout(() => {
-      f.style.transform = `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`;
-      f.style.opacity = 0;
-    }, 10);
+let angle=Math.random()*360
+let distance=Math.random()*500
 
-    setTimeout(() => { f.remove(); }, 1800);
-  }
+document.body.appendChild(p)
+
+setTimeout(()=>{
+p.style.transform=
+`translate(${Math.cos(angle)*distance}px,
+${Math.sin(angle)*distance}px)`
+p.style.opacity=0
+},10)
+
+setTimeout(()=>{
+p.remove()
+},1600)
+
 }
 
-function createHeart() {
-  let heart = document.createElement('div');
-  heart.className = 'heart';
-  heart.innerHTML = '💖';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
 }
 
-function sparkleHearts() {
-  let interval = setInterval(createHeart, 200);
-  setTimeout(() => clearInterval(interval), 7000);
+function createHeart(){
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="💖"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.animationDuration=(Math.random()*3+3)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},6000)
+
+}
+
+function sparkleHearts(){
+let interval=setInterval(createHeart,250)
+setTimeout(()=>clearInterval(interval),7000)
+}
+
+function showPhotos(){
+
+let gallery=document.getElementById("gallery")
+gallery.style.display="flex"
+
+let photos=document.querySelectorAll(".photo")
+
+photos.forEach((photo,i)=>{
+setTimeout(()=>{
+photo.classList.add("show")
+},i*400)
+})
+
 }
 
 </script>
 
 </body>
 </html>
-
