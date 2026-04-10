@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PornTube - Лучшее 18+ и Rule34</title>
+    <title>PornTube - 18+ и Rule34</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="logo">PornTube</div>
-        <input type="text" id="search" placeholder="Поиск по тегам или названию...">
+        <input type="text" id="search" placeholder="Поиск по названию или тегам...">
         <nav>
             <a href="#" onclick="showSection('home')">Главная</a>
             <a href="#" onclick="showSection('videos')">Видео</a>
@@ -17,35 +17,30 @@
             <a href="#" onclick="showSection('rule34')">Rule34</a>
             <a href="#" onclick="showSection('uploads')">Мои загрузки</a>
         </nav>
-        <button onclick="goToUpload()">Загрузить контент</button>
+        <button onclick="location.href='upload.html'">Загрузить</button>
     </header>
 
     <main>
-        <!-- Главная секция -->
         <section id="home-section" class="section">
-            <h1>Trending 18+</h1>
+            <h1>🔥 Trending 18+</h1>
             <div id="trending" class="grid"></div>
         </section>
 
-        <!-- Видео секция -->
         <section id="videos-section" class="section hidden">
-            <h1>Все видео</h1>
+            <h1>Видео</h1>
             <div id="videos-grid" class="grid"></div>
         </section>
 
-        <!-- Фото секция -->
         <section id="photos-section" class="section hidden">
             <h1>Фото</h1>
             <div id="photos-grid" class="grid"></div>
         </section>
 
-        <!-- Rule34 секция -->
         <section id="rule34-section" class="section hidden">
             <h1>Rule34 / Hentai</h1>
             <div id="rule34-grid" class="grid"></div>
         </section>
 
-        <!-- Мои загрузки -->
         <section id="uploads-section" class="section hidden">
             <h1>Мои загрузки</h1>
             <div id="uploads-grid" class="grid"></div>
