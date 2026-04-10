@@ -6,8 +6,50 @@
     <title>Мой профиль - PornTube</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main { max-width: 800px; margin: 40px auto; padding: 20px; }
-        .profile-card { background: #1a1a1a; padding: 25px; border-radius: 12px; margin: 20px 0; }
+        main { max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .profile-card {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 32px;
+            color: #ff4081;
+            font-weight: bold;
+        }
+        .my-posts {
+            margin-top: 30px;
+        }
+        .post-item {
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .post-item img, .post-item video {
+            width: 90px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .delete-my-post {
+            background: #c62828;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -18,16 +60,40 @@
 
     <main>
         <h1>👤 Мой профиль</h1>
+
         <div class="profile-card">
             <h2 id="user-name"></h2>
-            <p>Загружено контента: <strong id="upload-count">0</strong></p>
+            <p style="color:#888;">Добро пожаловать в свой профиль</p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-count">0</div>
+                    <div>Всего загружено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="photo-count">0</div>
+                    <div>Фото</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="video-count">0</div>
+                    <div>Видео</div>
+                </div>
+            </div>
         </div>
 
-        <button onclick="logout()" style="width:100%; padding:15px; background:#ff4081;">Выйти из аккаунта</button>
+        <div class="profile-card my-posts">
+            <h2>Мои загруженные посты</h2>
+            <div id="my-posts-list"></div>
+        </div>
+
+        <button onclick="logout()" style="width:100%; padding:16px; background:#ff4081; font-size:17px; margin-top:20px;">
+            Выйти из аккаунта
+        </button>
     </main>
 
     <script>
         const currentUser = localStorage.getItem('currentUser');
+        
         if (!currentUser) {
             alert("Сначала войдите в аккаунт!");
             window.location.href = "index.html";
@@ -35,9 +101,67 @@
 
         document.getElementById('user-name').textContent = currentUser;
 
-        // Считаем сколько пользователь загрузил
         let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
-        document.getElementById('upload-count').textContent = uploads.length;
+
+        // Фильтруем только посты текущего пользователя
+        let myUploads = uploads.filter(item => item.uploadedBy === currentUser);
+
+        // Статистика
+        document.getElementById('total-count').textContent = myUploads.length;
+        document.getElementById('photo-count').textContent = myUploads.filter(i => i.type === 'image').length;
+        document.getElementById('video-count').textContent = myUploads.filter(i => i.type === 'video').length;
+
+        // Отображение моих постов
+        function renderMyPosts() {
+            const container = document.getElementById('my-posts-list');
+            container.innerHTML = '';
+
+            if (myUploads.length === 0) {
+                container.innerHTML = '<p style="color:#888; text-align:center; padding:40px;">Вы ещё ничего не загрузили</p>';
+                return;
+            }
+
+            myUploads.forEach((item, globalIndex) => {
+                const div = document.createElement('div');
+                div.className = 'post-item';
+                div.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:15px; flex:1;">
+                        ${item.type === 'image' ? 
+                            `<img src="${item.url}" alt="${item.title}">` : 
+                            `<video src="${item.url}" muted></video>`
+                        }
+                        <div style="flex:1;">
+                            <strong>${item.title}</strong><br>
+                            <small style="color:#888;">${item.tags ? item.tags.join(', ') : 'без тегов'}</small>
+                        </div>
+                    </div>
+                    <button onclick="deleteMyPost(${globalIndex})" class="delete-my-post">Удалить</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Удаление своего поста
+        function deleteMyPost(globalIndex) {
+            if (confirm("Удалить этот пост навсегда?")) {
+                uploads.splice(globalIndex, 1);
+                localStorage.setItem('pornUploads', JSON.stringify(uploads));
+                alert("Пост удалён!");
+                location.reload();
+            }
+        }
+
+        function logout() {
+            if (confirm("Выйти из аккаунта?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = "index.html";
+            }
+        }
+
+        // Запуск
+        window.onload = function() {
+            renderMyPosts();
+        };
     </script>
 </body>
 </html>
