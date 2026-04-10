@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PornTube - 18+ и Rule34</title>
+    <title>PornTube - 18+ Rule34</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="logo">PornTube</div>
         <input type="text" id="search" placeholder="Поиск по названию или тегам...">
-        <nav>
-            <a href="#" onclick="showSection('home')">Главная</a>
-            <a href="#" onclick="showSection('videos')">Видео</a>
-            <a href="#" onclick="showSection('photos')">Фото</a>
-            <a href="#" onclick="showSection('rule34')">Rule34</a>
-            <a href="#" onclick="showSection('uploads')">Мои загрузки</a>
-        </nav>
-        <button onclick="location.href='upload.html'">+ Загрузить контент</button>
+
+        <div id="user-panel">
+            <span id="username-display"></span>
+            <button onclick="showAuthModal()">Войти / Регистрация</button>
+            <button onclick="logout()" id="logout-btn" class="hidden">Выйти</button>
+        </div>
     </header>
+
+    <nav class="nav">
+        <a onclick="showSection('home')">Главная</a>
+        <a onclick="showSection('videos')">Видео</a>
+        <a onclick="showSection('photos')">Фото</a>
+        <a onclick="showSection('rule34')">Rule34</a>
+        <a onclick="showSection('channels')">Каналы</a>
+        <a onclick="showSection('uploads')">Мои загрузки</a>
+    </nav>
 
     <main>
         <section id="home-section" class="section">
-            <h1>🔥 Trending 18+</h1>
-            <div id="trending" class="grid"></div>
+            <h1>🔥 Trending</h1>
+            <div id="trending-grid" class="grid"></div>
         </section>
 
         <section id="videos-section" class="section hidden">
@@ -41,11 +48,32 @@
             <div id="rule34-grid" class="grid"></div>
         </section>
 
+        <section id="channels-section" class="section hidden">
+            <h1>Каналы</h1>
+            <div id="channels-grid" class="grid"></div>
+        </section>
+
         <section id="uploads-section" class="section hidden">
             <h1>Мои загрузки</h1>
             <div id="uploads-grid" class="grid"></div>
         </section>
+
+        <!-- Админ панель -->
+        <section id="admin-section" class="section hidden">
+            <h1>👑 Админ-панель (Kostye119)</h1>
+            <button onclick="clearAllData()" style="background:#ff1a5c;">Очистить все данные сайта</button>
+        </section>
     </main>
+
+    <!-- Модальное окно авторизации -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Вход / Регистрация</h2>
+            <input type="text" id="username-input" placeholder="Имя пользователя (например: Kostye119)" maxlength="20">
+            <button onclick="handleAuth()">Войти</button>
+            <button onclick="closeAuthModal()">Закрыть</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
