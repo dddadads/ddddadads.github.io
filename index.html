@@ -23,6 +23,7 @@
         <a onclick="showSection('videos')">Видео</a>
         <a onclick="showSection('photos')">Фото</a>
         <a onclick="showSection('rule34')">Rule34</a>
+        <a href="gallery.html">Галерея</a>
         <a onclick="showSection('channels')">Каналы</a>
         <a href="user.html">Мой профиль</a>
         <a href="admin.html" id="admin-link" style="display: none;">👑 Админ</a>
@@ -30,48 +31,42 @@
     </nav>
 
     <main>
-        <!-- Главная -->
         <section id="home-section" class="section">
             <h1>🔥 Trending 18+</h1>
             <div id="trending-grid" class="grid"></div>
         </section>
 
-        <!-- Видео -->
         <section id="videos-section" class="section hidden">
             <h1>Видео</h1>
             <div id="videos-grid" class="grid"></div>
         </section>
 
-        <!-- Фото -->
         <section id="photos-section" class="section hidden">
             <h1>Фото</h1>
             <div id="photos-grid" class="grid"></div>
         </section>
 
-        <!-- Rule34 -->
         <section id="rule34-section" class="section hidden">
             <h1>Rule34 / Hentai</h1>
             <div id="rule34-grid" class="grid"></div>
         </section>
 
-        <!-- Каналы -->
         <section id="channels-section" class="section hidden">
             <h1>Каналы</h1>
             <div id="channels-grid" class="grid"></div>
         </section>
 
-        <!-- Мои загрузки -->
         <section id="uploads-section" class="section hidden">
             <h1>Мои загрузки</h1>
             <div id="uploads-grid" class="grid"></div>
         </section>
     </main>
 
-    <!-- Модальное окно входа -->
+    <!-- Модальное окно -->
     <div id="auth-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Вход / Регистрация</h2>
-            <input type="text" id="username-input" placeholder="Имя пользователя (например: Kostye119)" maxlength="20">
+            <input type="text" id="username-input" placeholder="Имя пользователя">
             <button onclick="handleAuth()">Войти</button>
             <button onclick="closeAuthModal()">Закрыть</button>
         </div>
