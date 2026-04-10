@@ -1,20 +1,12 @@
 // ==================== ДАННЫЕ ====================
 let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
-let currentUser = null;
-let users = JSON.parse(localStorage.getItem('pornUsers')) || {}; // база пользователей {username: {password, ...}}
-
-// Загружаем текущего пользователя
-function loadCurrentUser() {
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser && users[savedUser]) {
-        currentUser = savedUser;
-    }
-}
+let users = JSON.parse(localStorage.getItem('pornUsers')) || {};
+let currentUser = localStorage.getItem('currentUser') || null;
 
 // ==================== АВТОРИЗАЦИЯ ====================
 function showAuthModal() {
     document.getElementById('auth-modal').classList.remove('hidden');
-    switchTab(1); // по умолчанию открываем вкладку "Вход"
+    switchTab(1); // открываем вкладку "Вход" по умолчанию
 }
 
 function closeAuthModal() {
@@ -35,7 +27,7 @@ function switchTab(tab) {
     }
 }
 
-// ====================== РЕГИСТРАЦИЯ ======================
+// Регистрация
 function registerUser() {
     const username = document.getElementById('reg-username').value.trim();
     const password = document.getElementById('reg-password').value;
@@ -54,19 +46,17 @@ function registerUser() {
         return;
     }
 
-    // Сохраняем пользователя
     users[username] = {
         password: password,
         registered: new Date().toISOString()
     };
 
     localStorage.setItem('pornUsers', JSON.stringify(users));
-
-    alert("✅ Регистрация прошла успешно! Теперь можете войти.");
-    switchTab(1); // переключаем на вкладку входа
+    alert("✅ Регистрация успешна! Теперь войдите.");
+    switchTab(1);
 }
 
-// ====================== ВХОД ======================
+// Вход
 function loginUser() {
     const username = document.getElementById('login-username').value.trim();
     const password = document.getElementById('login-password').value;
@@ -90,11 +80,9 @@ function loginUser() {
     localStorage.setItem('currentUser', username);
     closeAuthModal();
     updateUserPanel();
-
     alert(`Добро пожаловать, ${username}!`);
 }
 
-// ====================== ВЫХОД ======================
 function logout() {
     if (confirm("Выйти из аккаунта?")) {
         currentUser = null;
@@ -175,7 +163,7 @@ function loadData() {
     renderGrid('trending-grid', uploads.slice(0, 8));
     renderGrid('videos-grid', uploads.filter(i => i.type === 'video'));
     renderGrid('photos-grid', uploads.filter(i => isImage(i)));
-    renderGrid('rule34-grid', uploads.filter(i =>
+    renderGrid('rule34-grid', uploads.filter(i => 
         i.tags && i.tags.some(t => ["rule34","hentai","anime","furry"].some(k => t.toLowerCase().includes(k)))
     ));
     renderGrid('uploads-grid', uploads);
@@ -183,7 +171,6 @@ function loadData() {
 
 // ==================== ЗАПУСК ====================
 document.addEventListener('DOMContentLoaded', () => {
-    loadCurrentUser();
     updateUserPanel();
     loadData();
 
@@ -199,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderGrid('videos-grid', filtered.filter(i => i.type === 'video'));
         renderGrid('photos-grid', filtered.filter(i => isImage(i)));
-        renderGrid('rule34-grid', filtered.filter(i =>
+        renderGrid('rule34-grid', filtered.filter(i => 
             i.tags && i.tags.some(t => ["rule34","hentai","anime","furry"].some(k => t.toLowerCase().includes(k)))
         ));
     });
