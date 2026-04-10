@@ -16,7 +16,7 @@ function handleAuth() {
     if (!username) return alert("Введите имя пользователя!");
 
     currentUser = username;
-    localStorage.setItem('currentUser', username);   // сохраняем
+    localStorage.setItem('currentUser', username);
     closeAuthModal();
     updateUserPanel();
 }
@@ -32,17 +32,22 @@ function logout() {
 function updateUserPanel() {
     const display = document.getElementById('username-display');
     const logoutBtn = document.getElementById('logout-btn');
+    const adminLink = document.getElementById('admin-link');
 
     if (currentUser) {
         display.textContent = currentUser;
         logoutBtn.classList.remove('hidden');
+        
+        // Показываем админку только для Kostye119
         if (currentUser === "Kostye119") {
-            document.getElementById('admin-section').classList.remove('hidden');
+            adminLink.style.display = 'inline';
+        } else {
+            adminLink.style.display = 'none';
         }
     } else {
         display.textContent = "Гость";
         logoutBtn.classList.add('hidden');
-        document.getElementById('admin-section').classList.add('hidden');
+        adminLink.style.display = 'none';
     }
 }
 
@@ -52,11 +57,12 @@ function showSection(section) {
     document.getElementById(section + '-section').classList.remove('hidden');
 }
 
-// УЛУЧШЕННОЕ определение фото/видео
+// Точное определение фото/видео
 function isImage(item) {
+    if (!item || !item.url) return false;
     if (item.type === 'image') return true;
-    if (item.url && item.url.startsWith('data:image')) return true;
-    if (item.url && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.url)) return true;
+    if (item.url.startsWith('data:image')) return true;
+    if (/\.(jpg|jpeg|png|gif|webp)$/i.test(item.url)) return true;
     return false;
 }
 
@@ -94,20 +100,16 @@ function likeItem(id) {
 }
 
 function loadData() {
-    renderGrid('trending-grid', uploads.slice(0, 8));
-    renderGrid('videos-grid', uploads.filter(i => i.type === 'video'));
-    renderGrid('photos-grid', uploads.filter(i => isImage(i)));
-    renderGrid('rule34-grid', uploads.filter(i => 
+    const allUploads = uploads;
+
+    renderGrid('trending-grid', allUploads.slice(0, 8));
+    renderGrid('videos-grid', allUploads.filter(i => i.type === 'video'));
+    renderGrid('photos-grid', allUploads.filter(i => isImage(i)));
+    renderGrid('rule34-grid', allUploads.filter(i => 
         i.tags && i.tags.some(t => ["rule34","hentai","anime","furry"].some(k => t.toLowerCase().includes(k)))
     ));
-    renderGrid('uploads-grid', uploads);
-}
-
-function clearAllData() {
-    if (confirm("ОЧИСТИТЬ ВСЁ? Это нельзя отменить!")) {
-        localStorage.clear();
-        location.reload();
-    }
+    renderGrid('uploads-grid', allUploads);
+    renderGrid('channels-grid', []); // пока пусто, можно потом добавить
 }
 
 // ==================== ЗАПУСК ====================
