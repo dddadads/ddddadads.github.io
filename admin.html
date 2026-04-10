@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - PornTube</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .admin-btn { 
+            width: 100%; 
+            padding: 18px; 
+            margin: 15px 0; 
+            font-size: 18px; 
+            background: #ff1a5c; 
+        }
+        .warning { color: #ff4081; font-size: 15px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PornTube</div>
+        <a href="index.html" style="color:white; margin-left:auto;">← На главную</a>
+    </header>
+
+    <main>
+        <h1>👑 Админ-панель</h1>
+        <p style="color:#888;">Вход выполнен как: <strong id="admin-name"></strong></p>
+
+        <button class="admin-btn" onclick="clearAllData()">Очистить все данные сайта</button>
+        <button class="admin-btn" onclick="deleteAllUploads()">Удалить все загрузки пользователей</button>
+        
+        <div class="warning">
+            ⚠️ Эти действия необратимы. Используй с осторожностью.
+        </div>
+    </main>
+
+    <script>
+        // Проверка доступа
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser !== "Kostye119") {
+            alert("Доступ запрещён! Только для администратора.");
+            window.location.href = "index.html";
+        }
+
+        document.getElementById('admin-name').textContent = currentUser;
+
+        function clearAllData() {
+            if (confirm("ОЧИСТИТЬ ВСЁ? Это удалит все данные сайта!")) {
+                localStorage.clear();
+                alert("Все данные очищены.");
+                window.location.href = "index.html";
+            }
+        }
+
+        function deleteAllUploads() {
+            if (confirm("Удалить ВСЕ загрузки?")) {
+                localStorage.setItem('pornUploads', JSON.stringify([]));
+                alert("Все загрузки удалены.");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

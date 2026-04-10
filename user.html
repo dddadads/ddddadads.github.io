@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - PornTube</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .profile-card { background: #1a1a1a; padding: 25px; border-radius: 12px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PornTube</div>
+        <a href="index.html" style="color:white; margin-left:auto;">← На главную</a>
+    </header>
+
+    <main>
+        <h1>👤 Мой профиль</h1>
+        <div class="profile-card">
+            <h2 id="user-name"></h2>
+            <p>Загружено контента: <strong id="upload-count">0</strong></p>
+        </div>
+
+        <button onclick="logout()" style="width:100%; padding:15px; background:#ff4081;">Выйти из аккаунта</button>
+    </main>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            alert("Сначала войдите в аккаунт!");
+            window.location.href = "index.html";
+        }
+
+        document.getElementById('user-name').textContent = currentUser;
+
+        // Считаем сколько пользователь загрузил
+        let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
+        document.getElementById('upload-count').textContent = uploads.length;
+    </script>
+</body>
+</html>
