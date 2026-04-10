@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея — PornTube</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main { padding: 20px; }
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card img {
+            height: 220px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PornTube</div>
+        <a href="index.html" style="color:white; margin-left:auto;">← На главную</a>
+    </header>
+
+    <main>
+        <div class="gallery-header">
+            <h1>📸 Галерея (Фото + Rule34)</h1>
+            <input type="text" id="gallery-search" placeholder="Поиск по тегам..." style="padding:10px; width:300px; border-radius:8px; background:#333; color:white;">
+        </div>
+
+        <div id="gallery-grid" class="grid"></div>
+    </main>
+
+    <script>
+        let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
+
+        function isImage(item) {
+            if (!item || !item.url) return false;
+            if (item.type === 'image') return true;
+            if (item.url.startsWith('data:image')) return true;
+            if (/\.(jpg|jpeg|png|gif|webp)$/i.test(item.url)) return true;
+            return false;
+        }
+
+        function renderGallery(filteredItems) {
+            const container = document.getElementById('gallery-grid');
+            container.innerHTML = '';
+
+            const imagesOnly = filteredItems.filter(item => isImage(item));
+
+            if (imagesOnly.length === 0) {
+                container.innerHTML = '<p style="color:#888; grid-column:1/-1; text-align:center;">Пока нет изображений</p>';
+                return;
+            }
+
+            imagesOnly.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <a href="video-player.html?id=${item.id}">
+                        <img src="${item.url}" alt="${item.title}">
+                        <div class="info">
+                            <h3>${item.title}</h3>
+                            <div class="tags">${item.tags ? item.tags.join(' • ') : ''}</div>
+                            <div class="likes">❤️ ${item.likes || 0}</div>
+                        </div>
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Поиск в галерее
+        document.getElementById('gallery-search').addEventListener('input', function() {
+            const term = this.value.toLowerCase().trim();
+            let filtered = uploads;
+
+            if (term) {
+                filtered = uploads.filter(item => 
+                    (item.title && item.title.toLowerCase().includes(term)) ||
+                    (item.tags && item.tags.some(tag => tag.toLowerCase().includes(term)))
+                );
+            }
+
+            renderGallery(filtered);
+        });
+
+        // Загрузка при открытии
+        window.onload = function() {
+            renderGallery(uploads);
+        };
+    </script>
+</body>
+</html>
