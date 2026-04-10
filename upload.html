@@ -52,11 +52,14 @@
             reader.onload = function(event) {
                 let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
 
+                // ТОЧНОЕ определение типа
+                const fileType = file.type.startsWith('video') ? 'video' : 'image';
+
                 const newItem = {
                     id: Date.now(),
                     title: title,
                     url: event.target.result,
-                    type: file.type.startsWith('video') ? 'video' : 'image',
+                    type: fileType,           // ← вот здесь теперь правильно
                     tags: tags,
                     likes: 0,
                     comments: []
