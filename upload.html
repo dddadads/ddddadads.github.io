@@ -6,34 +6,77 @@
     <title>Загрузка — PornTube</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main { 
-            max-width: 700px; 
-            margin: 40px auto; 
-            padding: 30px; 
-            background: #1a1a1a; 
-            border-radius: 12px; 
+        main {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 40px 30px;
+            background: #1a1a1a;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        input, button { 
-            width: 100%; 
-            padding: 14px; 
-            margin: 12px 0; 
-            border-radius: 8px; 
-            font-size: 16px; 
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ff4081;
         }
-        input[type="text"], input[type="file"] { 
-            background: #333; 
-            color: white; 
-            border: none; 
+        .form-group {
+            margin-bottom: 20px;
         }
-        button { 
-            background: #ff4081; 
-            color: white; 
-            cursor: pointer; 
-            font-weight: bold; 
-            margin-top: 20px; 
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ddd;
+            font-weight: 600;
+        }
+        input[type="text"], 
+        input[type="file"] {
+            width: 100%;
+            padding: 14px 16px;
+            background: #2a2a2a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         button:hover {
             background: #ff1a5c;
+            transform: translateY(-2px);
+        }
+        .info-text {
+            text-align: center;
+            color: #888;
+            margin-top: 25px;
+            font-size: 14.5px;
+        }
+        .drag-area {
+            border: 2px dashed #ff4081;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 15px 0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .drag-area:hover {
+            background: #2a2a2a;
+            border-color: #ff1a5c;
         }
     </style>
 </head>
@@ -44,30 +87,72 @@
     </header>
 
     <main>
-        <h1>Загрузить контент (18+)</h1>
+        <h1>📤 Загрузить контент (18+)</h1>
         
         <form id="uploadForm">
-            <input type="text" id="title" placeholder="Название видео или фото" required>
-            <input type="file" id="fileInput" accept="image/*,video/*" required>
-            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34, blonde, furry...)">
+            <div class="form-group">
+                <label for="title">Название</label>
+                <input type="text" id="title" placeholder="Введите название видео или фото" required>
+            </div>
+
+            <div class="form-group">
+                <label>Файл (фото или видео)</label>
+                <div id="drag-area" class="drag-area">
+                    <p>Нажмите или перетащите файл сюда</p>
+                    <input type="file" id="fileInput" accept="image/*,video/*" required style="display:none;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Теги (через запятую)</label>
+                <input type="text" id="tags" placeholder="hentai, rule34, blonde, furry, anime...">
+            </div>
+
             <button type="submit">Загрузить на PornTube</button>
         </form>
 
-        <p style="text-align:center; color:#888; margin-top:25px; font-size:14px;">
-            ⚠️ Загруженные файлы видны только тебе в этом браузере
+        <p class="info-text">
+            ⚠️ Загруженные файлы сохраняются только в твоём браузере<br>
+            Другие пользователи их не увидят
         </p>
     </main>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const dragArea = document.getElementById('drag-area');
+
+        // Drag & Drop
+        dragArea.addEventListener('click', () => fileInput.click());
+
+        dragArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragArea.style.background = '#2a2a2a';
+        });
+
+        dragArea.addEventListener('dragleave', () => {
+            dragArea.style.background = '';
+        });
+
+        dragArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragArea.style.background = '';
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                fileInput.files = e.dataTransfer.files;
+            }
+        });
+
+        // Основная загрузка
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const file = document.getElementById('fileInput').files[0];
+            const file = fileInput.files[0];
             const title = document.getElementById('title').value.trim();
             const tagsStr = document.getElementById('tags').value;
 
             if (!file || !title) {
-                alert("Пожалуйста, введи название и выбери файл!");
+                alert("Пожалуйста, введите название и выберите файл!");
                 return;
             }
 
@@ -79,20 +164,18 @@
             reader.onload = function(event) {
                 let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
 
-                // Точное определение типа файла
-                let fileType = 'image';
-                if (file.type.startsWith('video')) {
-                    fileType = 'video';
-                }
+                const currentUser = localStorage.getItem('currentUser') || "Аноним";
 
                 const newItem = {
                     id: Date.now(),
                     title: title,
                     url: event.target.result,
-                    type: fileType,
+                    type: file.type.startsWith('video') ? 'video' : 'image',
                     tags: tags,
                     likes: 0,
-                    comments: []
+                    comments: [],
+                    uploadedBy: currentUser,        // ← важно для профиля
+                    date: new Date().toISOString()
                 };
 
                 uploads.push(newItem);
