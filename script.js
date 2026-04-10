@@ -37,8 +37,6 @@ function updateUserPanel() {
     if (currentUser) {
         display.textContent = currentUser;
         logoutBtn.classList.remove('hidden');
-        
-        // Показываем админку только для Kostye119
         if (currentUser === "Kostye119") {
             adminLink.style.display = 'inline';
         } else {
@@ -57,7 +55,6 @@ function showSection(section) {
     document.getElementById(section + '-section').classList.remove('hidden');
 }
 
-// Точное определение фото/видео
 function isImage(item) {
     if (!item || !item.url) return false;
     if (item.type === 'image') return true;
@@ -69,6 +66,11 @@ function isImage(item) {
 function renderGrid(containerId, items) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
+
+    if (items.length === 0) {
+        container.innerHTML = '<p style="color:#888; grid-column: 1 / -1; text-align:center; padding:40px;">Пока ничего нет</p>';
+        return;
+    }
 
     items.forEach(item => {
         const card = document.createElement('div');
@@ -100,16 +102,13 @@ function likeItem(id) {
 }
 
 function loadData() {
-    const allUploads = uploads;
-
-    renderGrid('trending-grid', allUploads.slice(0, 8));
-    renderGrid('videos-grid', allUploads.filter(i => i.type === 'video'));
-    renderGrid('photos-grid', allUploads.filter(i => isImage(i)));
-    renderGrid('rule34-grid', allUploads.filter(i => 
-        i.tags && i.tags.some(t => ["rule34","hentai","anime","furry"].some(k => t.toLowerCase().includes(k)))
+    renderGrid('trending-grid', uploads.slice(0, 8));
+    renderGrid('videos-grid', uploads.filter(i => i.type === 'video'));
+    renderGrid('photos-grid', uploads.filter(i => isImage(i)));
+    renderGrid('rule34-grid', uploads.filter(i => 
+        i.tags && i.tags.some(t => ["rule34","hentai","anime","furry","porno"].some(k => t.toLowerCase().includes(k)))
     ));
-    renderGrid('uploads-grid', allUploads);
-    renderGrid('channels-grid', []); // пока пусто, можно потом добавить
+    renderGrid('uploads-grid', uploads);
 }
 
 // ==================== ЗАПУСК ====================
