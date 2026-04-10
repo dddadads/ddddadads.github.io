@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админ-панель - PornTube</title>
+    <title>Мега Админ — PornTube</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .admin-btn { 
-            width: 100%; 
-            padding: 18px; 
-            margin: 15px 0; 
-            font-size: 18px; 
-            background: #ff1a5c; 
+        main { max-width: 1000px; margin: 30px auto; padding: 20px; }
+        .admin-card {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
         }
-        .warning { color: #ff4081; font-size: 15px; margin: 20px 0; }
+        .stat { font-size: 28px; color: #ff4081; font-weight: bold; }
+        button { 
+            width: 100%; 
+            padding: 16px; 
+            margin: 10px 0; 
+            font-size: 17px; 
+        }
+        .danger { background: #ff1a5c !important; }
     </style>
 </head>
 <body>
@@ -24,29 +30,48 @@
     </header>
 
     <main>
-        <h1>👑 Админ-панель</h1>
-        <p style="color:#888;">Вход выполнен как: <strong id="admin-name"></strong></p>
+        <h1>👑 Админ Панель</h1>
+        <p style="color:#888;">Добро пожаловать, <strong id="admin-name"></strong></p>
 
-        <button class="admin-btn" onclick="clearAllData()">Очистить все данные сайта</button>
-        <button class="admin-btn" onclick="deleteAllUploads()">Удалить все загрузки пользователей</button>
-        
-        <div class="warning">
-            ⚠️ Эти действия необратимы. Используй с осторожностью.
+        <div class="admin-card">
+            <h2>Статистика</h2>
+            <p>Всего загрузок: <span id="total-uploads" class="stat">0</span></p>
+            <p>Фото: <span id="total-photos" class="stat">0</span></p>
+            <p>Видео: <span id="total-videos" class="stat">0</span></p>
+        </div>
+
+        <div class="admin-card">
+            <h2>Управление</h2>
+            <button onclick="clearAllData()">Очистить все данные сайта</button>
+            <button onclick="deleteAllUploads()" class="danger">Удалить все загрузки пользователей</button>
+            <button onclick="exportData()">Экспортировать все данные (JSON)</button>
+        </div>
+
+        <div class="admin-card">
+            <h2>Быстрые действия</h2>
+            <button onclick="location.href='gallery.html'">Открыть Галерею</button>
+            <button onclick="location.href='index.html'">Вернуться на главную</button>
         </div>
     </main>
 
     <script>
-        // Проверка доступа
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser !== "Kostye119") {
-            alert("Доступ запрещён! Только для администратора.");
+            alert("Доступ запрещён! Только для администратора Kostye119.");
             window.location.href = "index.html";
         }
 
         document.getElementById('admin-name').textContent = currentUser;
 
+        let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
+
+        // Статистика
+        document.getElementById('total-uploads').textContent = uploads.length;
+        document.getElementById('total-photos').textContent = uploads.filter(i => i.type === 'image').length;
+        document.getElementById('total-videos').textContent = uploads.filter(i => i.type === 'video').length;
+
         function clearAllData() {
-            if (confirm("ОЧИСТИТЬ ВСЁ? Это удалит все данные сайта!")) {
+            if (confirm("ОЧИСТИТЬ ВСЁ? Это удалит все данные навсегда!")) {
                 localStorage.clear();
                 alert("Все данные очищены.");
                 window.location.href = "index.html";
@@ -59,6 +84,17 @@
                 alert("Все загрузки удалены.");
                 location.reload();
             }
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(uploads, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileDefaultName = 'porntube_backup.json';
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
         }
     </script>
 </body>
