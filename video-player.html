@@ -19,7 +19,17 @@
             margin: 0 auto; 
             padding: 0 20px; 
         }
-        .comments { margin-top: 30px; }
+        .info-bar {
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .comments { 
+            margin-top: 30px; 
+        }
         .comment { 
             background: #1a1a1a; 
             padding: 14px; 
@@ -41,14 +51,14 @@
         }
         .action-btn {
             padding: 12px 20px;
-            margin: 8px 5px;
+            margin: 5px;
             font-size: 16px;
         }
         .admin-actions {
-            margin: 15px 0;
+            margin: 20px 0;
             padding: 15px;
             background: #2a2a2a;
-            border-radius: 8px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -62,16 +72,16 @@
         <video id="player" controls autoplay></video>
         
         <h2 id="video-title"></h2>
-        <p id="video-tags" style="color:#ff4081; margin-bottom:15px;"></p>
+        <p id="video-tags" style="color:#ff4081;"></p>
 
-        <!-- Кнопки действий -->
-        <div style="margin:15px 0;">
-            <button onclick="likeThisPost()" class="action-btn">❤️ Лайкнуть (<span id="like-count">0</span>)</button>
+        <div class="info-bar">
+            <button onclick="likeThisPost()" class="action-btn">❤️ Лайк (<span id="like-count">0</span>)</button>
+            <span id="uploaded-by" style="color:#888;"></span>
         </div>
 
-        <!-- Админ действия -->
+        <!-- Админ панель (только для Kostye119) -->
         <div id="admin-actions" class="admin-actions hidden">
-            <button onclick="deleteThisPost()" class="action-btn danger">🗑 Удалить этот пост (Админ)</button>
+            <button onclick="deleteThisPost()" class="action-btn danger">🗑 Удалить этот пост</button>
         </div>
 
         <div class="comments">
@@ -95,13 +105,14 @@
             alert("Контент не найден");
             window.location.href = "index.html";
         } else {
-            // Загружаем видео/фото
+            // Загрузка плеера
             document.getElementById('player').src = item.url;
             document.getElementById('video-title').textContent = item.title;
             document.getElementById('video-tags').textContent = "Теги: " + (item.tags ? item.tags.join(" • ") : "—");
             document.getElementById('like-count').textContent = item.likes || 0;
+            document.getElementById('uploaded-by').textContent = `Загрузил: ${item.uploadedBy || 'Аноним'}`;
 
-            // Показываем админ кнопки
+            // Показываем админ-кнопки только для Kostye119
             if (currentUser === "Kostye119") {
                 document.getElementById('admin-actions').classList.remove('hidden');
             }
@@ -110,15 +121,15 @@
             function renderComments() {
                 const list = document.getElementById('comments-list');
                 list.innerHTML = '';
-                (item.comments || []).forEach(comment => {
+                (item.comments || []).forEach(c => {
                     const div = document.createElement('div');
                     div.className = 'comment';
-                    div.innerHTML = `<strong>${comment.username || 'Аноним'}:</strong> ${comment.text}`;
+                    div.innerHTML = `<strong>${c.username || 'Аноним'}:</strong> ${c.text}`;
                     list.appendChild(div);
                 });
             }
 
-            // Отправка комментария с именем пользователя
+            // Отправка комментария
             window.postComment = function() {
                 const text = document.getElementById('new-comment').value.trim();
                 if (!text) return;
@@ -143,14 +154,14 @@
                 localStorage.setItem('pornUploads', JSON.stringify(uploads));
             };
 
-            // Удаление поста (только для админа)
+            // Удаление поста (только админ)
             window.deleteThisPost = function() {
                 if (confirm("Удалить этот пост навсегда?")) {
                     const index = uploads.findIndex(i => i.id === id);
                     if (index !== -1) {
                         uploads.splice(index, 1);
                         localStorage.setItem('pornUploads', JSON.stringify(uploads));
-                        alert("Пост удалён!");
+                        alert("Пост успешно удалён!");
                         window.location.href = "index.html";
                     }
                 }
