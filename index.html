@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PornTube - 18+ и Rule34</title>
+    <title>PornTube - 18+ Rule34</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="logo">PornTube</div>
-        <input type="text" id="search" placeholder="Поиск по названию или тегам...">
-
+        <input type="text" id="search" placeholder="Поиск...">
         <div id="user-panel">
             <span id="username-display">Гость</span>
-            <button onclick="showAuthModal()">Войти / Регистрация</button>
+            <button onclick="showAuthModal()">Войти</button>
             <button onclick="logout()" id="logout-btn" class="hidden">Выйти</button>
         </div>
     </header>
@@ -28,47 +27,19 @@
     </nav>
 
     <main>
-        <section id="home-section" class="section">
-            <h1>🔥 Trending 18+</h1>
-            <div id="trending-grid" class="grid"></div>
-        </section>
-
-        <section id="videos-section" class="section hidden">
-            <h1>Видео</h1>
-            <div id="videos-grid" class="grid"></div>
-        </section>
-
-        <section id="photos-section" class="section hidden">
-            <h1>Фото</h1>
-            <div id="photos-grid" class="grid"></div>
-        </section>
-
-        <section id="rule34-section" class="section hidden">
-            <h1>Rule34 / Hentai</h1>
-            <div id="rule34-grid" class="grid"></div>
-        </section>
-
-        <section id="channels-section" class="section hidden">
-            <h1>Каналы</h1>
-            <div id="channels-grid" class="grid"></div>
-        </section>
-
-        <section id="uploads-section" class="section hidden">
-            <h1>Мои загрузки</h1>
-            <div id="uploads-grid" class="grid"></div>
-        </section>
-
-        <section id="admin-section" class="section hidden">
-            <h1>👑 Админ-панель — Kostye119</h1>
-            <button onclick="clearAllData()" style="background:#ff1a5c; padding:12px 20px;">Очистить все данные</button>
-        </section>
+        <section id="home-section" class="section"><h1>🔥 Trending</h1><div id="trending-grid" class="grid"></div></section>
+        <section id="videos-section" class="section hidden"><h1>Видео</h1><div id="videos-grid" class="grid"></div></section>
+        <section id="photos-section" class="section hidden"><h1>Фото</h1><div id="photos-grid" class="grid"></div></section>
+        <section id="rule34-section" class="section hidden"><h1>Rule34</h1><div id="rule34-grid" class="grid"></div></section>
+        <section id="channels-section" class="section hidden"><h1>Каналы</h1><div id="channels-grid" class="grid"></div></section>
+        <section id="uploads-section" class="section hidden"><h1>Мои загрузки</h1><div id="uploads-grid" class="grid"></div></section>
+        <section id="admin-section" class="section hidden"><h1>👑 Админ (Kostye119)</h1><button onclick="clearAllData()">Очистить всё</button></section>
     </main>
 
-    <!-- Модальное окно авторизации -->
     <div id="auth-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Вход / Регистрация</h2>
-            <input type="text" id="username-input" placeholder="Имя пользователя" maxlength="20">
+            <input type="text" id="username-input" placeholder="Имя пользователя">
             <button onclick="handleAuth()">Войти</button>
             <button onclick="closeAuthModal()">Закрыть</button>
         </div>
