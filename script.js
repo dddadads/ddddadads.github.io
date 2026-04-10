@@ -2,16 +2,6 @@
 let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
 let currentUser = localStorage.getItem('currentUser') || null;
 
-// Фейковый контент при первом запуске
-if (uploads.length === 0) {
-    uploads = [
-        {id:1001, title:"Cute Hentai Tease", type:"image", url:"https://picsum.photos/id/1015/800/600", tags:["hentai","rule34"], likes:342, comments:[]},
-        {id:1002, title:"Hot Animation", type:"video", url:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", tags:["hentai","18+"], likes:215, comments:[]},
-        {id:1003, title:"Furry Rule34", type:"image", url:"https://picsum.photos/id/237/800/600", tags:["rule34","furry"], likes:487, comments:[]}
-    ];
-    localStorage.setItem('pornUploads', JSON.stringify(uploads));
-}
-
 // ==================== АВТОРИЗАЦИЯ ====================
 function showAuthModal() {
     document.getElementById('auth-modal').classList.remove('hidden');
@@ -26,7 +16,7 @@ function handleAuth() {
     if (!username) return alert("Введите имя пользователя!");
 
     currentUser = username;
-    localStorage.setItem('currentUser', username);
+    localStorage.setItem('currentUser', username);   // сохраняем
     closeAuthModal();
     updateUserPanel();
 }
@@ -62,9 +52,12 @@ function showSection(section) {
     document.getElementById(section + '-section').classList.remove('hidden');
 }
 
+// УЛУЧШЕННОЕ определение фото/видео
 function isImage(item) {
-    return item.type === 'image' || 
-           (item.url && (item.url.startsWith('data:image') || /\.(jpg|jpeg|png|gif|webp)$/i.test(item.url)));
+    if (item.type === 'image') return true;
+    if (item.url && item.url.startsWith('data:image')) return true;
+    if (item.url && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.url)) return true;
+    return false;
 }
 
 function renderGrid(containerId, items) {
