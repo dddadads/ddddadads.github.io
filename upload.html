@@ -3,61 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Загрузка на PornTube</title>
+    <title>Загрузка — PornTube</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        main { max-width: 600px; margin: 40px auto; padding: 20px; }
+        input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; }
+        input[type="text"] { background: #333; color: white; border: none; }
+        button { background: #ff4081; color: white; font-size: 18px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <header>
         <div class="logo">PornTube</div>
-        <a href="index.html" style="color: white; margin-left: auto;">← На главную</a>
+        <a href="index.html" style="color:white; margin-left:auto;">← На главную</a>
     </header>
 
-    <main style="max-width: 600px; margin: 40px auto; padding: 20px;">
-        <h1>Загрузить 18+ контент</h1>
-        
+    <main>
+        <h1>Загрузить контент (18+)</h1>
         <form id="uploadForm">
-            <input type="text" id="title" placeholder="Название видео/фото" required style="width:100%; padding:12px; margin:10px 0;">
-            
-            <input type="file" id="fileInput" accept="image/*,video/*" required style="margin:15px 0;">
-            
-            <input type="text" id="tags" placeholder="Теги через запятую (например: rule34, hentai, blonde)" style="width:100%; padding:12px; margin:10px 0;">
-            
-            <button type="submit" style="width:100%; padding:15px; font-size:18px;">Загрузить на PornTube</button>
+            <input type="text" id="title" placeholder="Название" required>
+            <input type="file" id="fileInput" accept="image/*,video/*" required>
+            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34, blonde...)">
+            <button type="submit">Загрузить на PornTube</button>
         </form>
+        <p style="margin-top:20px; color:#888; font-size:14px;">
+            ⚠️ Загруженные файлы видны только тебе в этом браузере
+        </p>
     </main>
 
-    <script src="script.js"></script>
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const file = document.getElementById('fileInput').files[0];
             const title = document.getElementById('title').value.trim();
             const tagsStr = document.getElementById('tags').value;
 
             if (!file || !title) {
-                alert('Заполни название и выбери файл!');
+                alert('Название и файл обязательны!');
                 return;
             }
 
-            const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+            const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
 
             const reader = new FileReader();
             reader.onload = function(event) {
+                let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
+
                 const newItem = {
                     id: Date.now(),
                     title: title,
-                    url: event.target.result,        // base64 для изображений и видео
+                    url: event.target.result,
                     type: file.type.startsWith('video') ? 'video' : 'image',
                     tags: tags,
-                    date: new Date().toISOString()
+                    likes: 0,
+                    comments: []
                 };
 
-                let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
                 uploads.push(newItem);
                 localStorage.setItem('pornUploads', JSON.stringify(uploads));
 
-                alert('Успешно загружено! Теперь можно смотреть на главной странице.');
+                alert('✅ Успешно загружено!\nТеперь можно посмотреть в разделе "Мои загрузки"');
                 window.location.href = 'index.html';
             };
 
