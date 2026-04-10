@@ -3,79 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новости: Delimour и 300 трлн онлайн зрителей</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #222;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .article-title {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .article-meta {
-            color: #888;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-        .article-content {
-            line-height: 1.6;
-            font-size: 1.1em;
-        }
-        .highlight {
-            color: #d63447;
-            font-weight: bold;
-        }
-        footer {
-            background-color: #222;
-            color: #ccc;
-            text-align: center;
-            padding: 10px;
-            margin-top: 40px;
-        }
-    </style>
+    <title>PornTube - Лучшее 18+ и Rule34</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Новости Виртуальной Вселенной</h1>
+        <div class="logo">PornTube</div>
+        <input type="text" id="search" placeholder="Поиск по тегам или названию...">
+        <nav>
+            <a href="#" onclick="showSection('home')">Главная</a>
+            <a href="#" onclick="showSection('videos')">Видео</a>
+            <a href="#" onclick="showSection('photos')">Фото</a>
+            <a href="#" onclick="showSection('rule34')">Rule34</a>
+            <a href="#" onclick="showSection('uploads')">Мои загрузки</a>
+        </nav>
+        <button onclick="goToUpload()">Загрузить контент</button>
     </header>
+
     <main>
-        <div class="article">
-            <div class="article-title">Ютубер <span class="highlight">Delimour</span> собрал 300 трлн зрителей онлайн, доказав существование инопланетян</div>
-            <div class="article-meta">10 марта 2026 | Автор: Виртуальная Новостная Служба</div>
-            <div class="article-content">
-                В сенсационном событии, которое потрясло весь цифровой мир, известный ютубер <span class="highlight">Delimour</span> смог привлечь к своей трансляции невероятное количество — 300 триллионов виртуальных зрителей. По словам экспертов, это абсолютно новый рекорд для онлайн-платформ.  
+        <!-- Главная секция -->
+        <section id="home-section" class="section">
+            <h1>Trending 18+</h1>
+            <div id="trending" class="grid"></div>
+        </section>
 
-                Во время трансляции Delimour представил доказательства существования внеземных цивилизаций, включая высококачественные визуализации и свидетельства очевидцев с разных уголков планеты.  
+        <!-- Видео секция -->
+        <section id="videos-section" class="section hidden">
+            <h1>Все видео</h1>
+            <div id="videos-grid" class="grid"></div>
+        </section>
 
-                <p>«Мы видим абсолютно новую эпоху взаимодействия человека и технологий, — комментирует доктор виртуальной науки, профессор Алексей Кибернов. — Такие достижения пока не имели аналогов в истории медиа».</p>
+        <!-- Фото секция -->
+        <section id="photos-section" class="section hidden">
+            <h1>Фото</h1>
+            <div id="photos-grid" class="grid"></div>
+        </section>
 
-                <p>В завершение трансляции Delimour пообещал продолжить исследования, чтобы предоставить ещё больше доказательств и интерактивных событий для миллионов виртуальных участников.</p>
-            </div>
-        </div>
+        <!-- Rule34 секция -->
+        <section id="rule34-section" class="section hidden">
+            <h1>Rule34 / Hentai</h1>
+            <div id="rule34-grid" class="grid"></div>
+        </section>
+
+        <!-- Мои загрузки -->
+        <section id="uploads-section" class="section hidden">
+            <h1>Мои загрузки</h1>
+            <div id="uploads-grid" class="grid"></div>
+        </section>
     </main>
-    <footer>
-        &copy; 2026 Виртуальная Новостная Служба. Все права вымышлены.
-    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка на PornTube</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">PornTube</div>
+        <a href="index.html" style="color: white; margin-left: auto;">← На главную</a>
+    </header>
+
+    <main style="max-width: 600px; margin: 40px auto; padding: 20px;">
+        <h1>Загрузить 18+ контент</h1>
+        
+        <form id="uploadForm">
+            <input type="text" id="title" placeholder="Название видео/фото" required style="width:100%; padding:12px; margin:10px 0;">
+            
+            <input type="file" id="fileInput" accept="image/*,video/*" required style="margin:15px 0;">
+            
+            <input type="text" id="tags" placeholder="Теги через запятую (например: rule34, hentai, blonde)" style="width:100%; padding:12px; margin:10px 0;">
+            
+            <button type="submit" style="width:100%; padding:15px; font-size:18px;">Загрузить на PornTube</button>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const file = document.getElementById('fileInput').files[0];
+            const title = document.getElementById('title').value.trim();
+            const tagsStr = document.getElementById('tags').value;
+
+            if (!file || !title) {
+                alert('Заполни название и выбери файл!');
+                return;
+            }
+
+            const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const newItem = {
+                    id: Date.now(),
+                    title: title,
+                    url: event.target.result,        // base64 для изображений и видео
+                    type: file.type.startsWith('video') ? 'video' : 'image',
+                    tags: tags,
+                    date: new Date().toISOString()
+                };
+
+                let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
+                uploads.push(newItem);
+                localStorage.setItem('pornUploads', JSON.stringify(uploads));
+
+                alert('Успешно загружено! Теперь можно смотреть на главной странице.');
+                window.location.href = 'index.html';
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
