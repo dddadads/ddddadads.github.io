@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PornTube - 18+ и Rule34</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .modal-content {
+            width: 420px;
+        }
+        .tab {
+            display: inline-block;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .tab.active {
+            color: #ff4081;
+            border-bottom: 3px solid #ff4081;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        input[type="password"] {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -35,40 +61,62 @@
             <h1>🔥 Trending 18+</h1>
             <div id="trending-grid" class="grid"></div>
         </section>
-
         <section id="videos-section" class="section hidden">
             <h1>Видео</h1>
             <div id="videos-grid" class="grid"></div>
         </section>
-
         <section id="photos-section" class="section hidden">
             <h1>Фото</h1>
             <div id="photos-grid" class="grid"></div>
         </section>
-
         <section id="rule34-section" class="section hidden">
             <h1>Rule34 / Hentai</h1>
             <div id="rule34-grid" class="grid"></div>
         </section>
-
         <section id="channels-section" class="section hidden">
             <h1>Каналы</h1>
             <div id="channels-grid" class="grid"></div>
         </section>
-
         <section id="uploads-section" class="section hidden">
             <h1>Мои загрузки</h1>
             <div id="uploads-grid" class="grid"></div>
         </section>
     </main>
 
-    <!-- Модальное окно -->
+    <!-- Модальное окно с вкладками -->
     <div id="auth-modal" class="modal hidden">
         <div class="modal-content">
-            <h2>Вход / Регистрация</h2>
-            <input type="text" id="username-input" placeholder="Имя пользователя">
-            <button onclick="handleAuth()">Войти</button>
-            <button onclick="closeAuthModal()">Закрыть</button>
+            <div style="text-align:center; margin-bottom:15px;">
+                <span onclick="switchTab(1)" id="tab-login" class="tab active">Вход</span>
+                <span onclick="switchTab(2)" id="tab-register" class="tab">Регистрация</span>
+            </div>
+
+            <!-- Форма Входа -->
+            <div id="login-form">
+                <div class="form-group">
+                    <input type="text" id="login-username" placeholder="Имя пользователя" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Пароль" required>
+                </div>
+                <button onclick="loginUser()">Войти</button>
+            </div>
+
+            <!-- Форма Регистрации -->
+            <div id="register-form" class="hidden">
+                <div class="form-group">
+                    <input type="text" id="reg-username" placeholder="Имя пользователя" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="reg-password" placeholder="Пароль" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="reg-password2" placeholder="Повторите пароль" required>
+                </div>
+                <button onclick="registerUser()">Зарегистрироваться</button>
+            </div>
+
+            <button onclick="closeAuthModal()" style="background:#555; margin-top:15px;">Закрыть</button>
         </div>
     </div>
 
