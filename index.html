@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PornTube - 18+ Rule34</title>
+    <title>PornTube - 18+ и Rule34</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
         <input type="text" id="search" placeholder="Поиск по названию или тегам...">
 
         <div id="user-panel">
-            <span id="username-display"></span>
+            <span id="username-display">Гость</span>
             <button onclick="showAuthModal()">Войти / Регистрация</button>
             <button onclick="logout()" id="logout-btn" class="hidden">Выйти</button>
         </div>
@@ -29,7 +29,7 @@
 
     <main>
         <section id="home-section" class="section">
-            <h1>🔥 Trending</h1>
+            <h1>🔥 Trending 18+</h1>
             <div id="trending-grid" class="grid"></div>
         </section>
 
@@ -58,10 +58,9 @@
             <div id="uploads-grid" class="grid"></div>
         </section>
 
-        <!-- Админ панель -->
         <section id="admin-section" class="section hidden">
-            <h1>👑 Админ-панель (Kostye119)</h1>
-            <button onclick="clearAllData()" style="background:#ff1a5c;">Очистить все данные сайта</button>
+            <h1>👑 Админ-панель — Kostye119</h1>
+            <button onclick="clearAllData()" style="background:#ff1a5c; padding:12px 20px;">Очистить все данные</button>
         </section>
     </main>
 
@@ -69,7 +68,7 @@
     <div id="auth-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Вход / Регистрация</h2>
-            <input type="text" id="username-input" placeholder="Имя пользователя (например: Kostye119)" maxlength="20">
+            <input type="text" id="username-input" placeholder="Имя пользователя" maxlength="20">
             <button onclick="handleAuth()">Войти</button>
             <button onclick="closeAuthModal()">Закрыть</button>
         </div>
