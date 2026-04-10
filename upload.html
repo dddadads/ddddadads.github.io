@@ -6,10 +6,35 @@
     <title>Загрузка — PornTube</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main { max-width: 700px; margin: 40px auto; padding: 20px; }
-        input, button { width: 100%; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 16px; }
-        input[type="text"], input[type="file"] { background: #333; color: white; border: none; }
-        button { background: #ff4081; color: white; cursor: pointer; font-weight: bold; }
+        main { 
+            max-width: 700px; 
+            margin: 40px auto; 
+            padding: 30px; 
+            background: #1a1a1a; 
+            border-radius: 12px; 
+        }
+        input, button { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 12px 0; 
+            border-radius: 8px; 
+            font-size: 16px; 
+        }
+        input[type="text"], input[type="file"] { 
+            background: #333; 
+            color: white; 
+            border: none; 
+        }
+        button { 
+            background: #ff4081; 
+            color: white; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 20px; 
+        }
+        button:hover {
+            background: #ff1a5c;
+        }
     </style>
 </head>
 <body>
@@ -22,14 +47,14 @@
         <h1>Загрузить контент (18+)</h1>
         
         <form id="uploadForm">
-            <input type="text" id="title" placeholder="Название" required>
+            <input type="text" id="title" placeholder="Название видео или фото" required>
             <input type="file" id="fileInput" accept="image/*,video/*" required>
-            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34...)">
-            <button type="submit">Загрузить</button>
+            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34, blonde, furry...)">
+            <button type="submit">Загрузить на PornTube</button>
         </form>
 
-        <p style="text-align:center; color:#888; margin-top:20px;">
-            ⚠️ Файлы сохраняются только у тебя в браузере
+        <p style="text-align:center; color:#888; margin-top:25px; font-size:14px;">
+            ⚠️ Загруженные файлы видны только тебе в этом браузере
         </p>
     </main>
 
@@ -42,24 +67,29 @@
             const tagsStr = document.getElementById('tags').value;
 
             if (!file || !title) {
-                alert("Название и файл обязательны!");
+                alert("Пожалуйста, введи название и выбери файл!");
                 return;
             }
 
-            const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+            const tags = tagsStr 
+                ? tagsStr.split(',').map(t => t.trim()).filter(t => t.length > 0) 
+                : [];
 
             const reader = new FileReader();
             reader.onload = function(event) {
                 let uploads = JSON.parse(localStorage.getItem('pornUploads')) || [];
 
-                // ТОЧНОЕ определение типа
-                const fileType = file.type.startsWith('video') ? 'video' : 'image';
+                // Точное определение типа файла
+                let fileType = 'image';
+                if (file.type.startsWith('video')) {
+                    fileType = 'video';
+                }
 
                 const newItem = {
                     id: Date.now(),
                     title: title,
                     url: event.target.result,
-                    type: fileType,           // ← вот здесь теперь правильно
+                    type: fileType,
                     tags: tags,
                     likes: 0,
                     comments: []
@@ -68,7 +98,7 @@
                 uploads.push(newItem);
                 localStorage.setItem('pornUploads', JSON.stringify(uploads));
 
-                alert("✅ Загружено успешно!");
+                alert("✅ Контент успешно загружен!");
                 window.location.href = "index.html";
             };
 
