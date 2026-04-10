@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <style>
         main { max-width: 700px; margin: 40px auto; padding: 20px; }
-        input[type="text"], input[type="file"] { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; background: #333; color: white; border: none; }
-        button { width: 100%; padding: 15px; font-size: 18px; margin-top: 10px; }
+        input, button { width: 100%; padding: 14px; margin: 12px 0; border-radius: 8px; font-size: 16px; }
+        input[type="text"], input[type="file"] { background: #333; color: white; border: none; }
+        button { background: #ff4081; color: white; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -21,15 +22,14 @@
         <h1>Загрузить контент (18+)</h1>
         
         <form id="uploadForm">
-            <input type="text" id="title" placeholder="Название видео или фото" required>
+            <input type="text" id="title" placeholder="Название" required>
             <input type="file" id="fileInput" accept="image/*,video/*" required>
-            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34, blonde, furry...)">
-            <button type="submit">Загрузить на PornTube</button>
+            <input type="text" id="tags" placeholder="Теги через запятую (hentai, rule34...)">
+            <button type="submit">Загрузить</button>
         </form>
 
-        <p style="margin-top:20px; color:#888; text-align:center;">
-            ⚠️ Файлы сохраняются только в твоём браузере<br>
-            Другие пользователи их не увидят
+        <p style="text-align:center; color:#888; margin-top:20px;">
+            ⚠️ Файлы сохраняются только у тебя в браузере
         </p>
     </main>
 
@@ -65,7 +65,7 @@
                 uploads.push(newItem);
                 localStorage.setItem('pornUploads', JSON.stringify(uploads));
 
-                alert("✅ Успешно загружено!");
+                alert("✅ Загружено успешно!");
                 window.location.href = "index.html";
             };
 
