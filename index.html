@@ -3,150 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PornTube - 18+ и Rule34</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .modal-content {
-            width: 460px;
-            padding: 35px 30px;
-        }
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #333;
-        }
-        .tab {
-            padding: 14px 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 17px;
-            transition: all 0.3s;
-        }
-        .tab.active {
-            color: #ff4081;
-            border-bottom: 4px solid #ff4081;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 14px 16px;
-            background: #2a2a2a;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-        }
-        .close-btn {
-            background: #555 !important;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Главная — С.С.У</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">PornTube</div>
-        <input type="text" id="search" placeholder="Поиск по названию или тегам...">
 
-        <div id="user-panel">
-            <span id="username-display">Гость</span>
-            <button onclick="showAuthModal()">Войти / Регистрация</button>
-            <button onclick="logout()" id="logout-btn" class="hidden">Выйти</button>
-        </div>
-    </header>
-
-    <nav class="nav">
-        <a onclick="showSection('home')">Главная</a>
-        <a onclick="showSection('videos')">Видео</a>
-        <a onclick="showSection('photos')">Фото</a>
-        <a onclick="showSection('rule34')">Rule34</a>
-        <a href="gallery.html">Галерея</a>
-        <a onclick="showSection('channels')">Каналы</a>
-        <a href="user.html">Мой профиль</a>
-        <a href="admin.html" id="admin-link" style="display: none;">👑 Админ</a>
-        <a onclick="showSection('uploads')">Мои загрузки</a>
+    <nav class="navbar">
+        <a href="/index.html" class="nav-btn">Главная</a>
+        <a href="/about.html" class="nav-btn">Цель</a>
+        <a href="/tariffs.html" class="nav-btn">Тарифы</a>
+        <a href="/contacts.html" class="nav-btn">Контакты</a>
     </nav>
 
-    <main>
-        <section id="home-section" class="section">
-            <h1>🔥 Trending 18+</h1>
-            <div id="trending-grid" class="grid"></div>
-        </section>
+    <div class="content-box">
 
-        <section id="videos-section" class="section hidden">
-            <h1>Видео</h1>
-            <div id="videos-grid" class="grid"></div>
-        </section>
-
-        <section id="photos-section" class="section hidden">
-            <h1>Фото</h1>
-            <div id="photos-grid" class="grid"></div>
-        </section>
-
-        <section id="rule34-section" class="section hidden">
-            <h1>Rule34 / Hentai</h1>
-            <div id="rule34-grid" class="grid"></div>
-        </section>
-
-        <section id="channels-section" class="section hidden">
-            <h1>Каналы</h1>
-            <div id="channels-grid" class="grid"></div>
-        </section>
-
-        <section id="uploads-section" class="section hidden">
-            <h1>Мои загрузки</h1>
-            <div id="uploads-grid" class="grid"></div>
-        </section>
-    </main>
-
-    <!-- Модальное окно авторизации -->
-    <div id="auth-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="tabs">
-                <span onclick="switchTab(1)" id="tab-login" class="tab active">Вход</span>
-                <span onclick="switchTab(2)" id="tab-register" class="tab">Регистрация</span>
-            </div>
-
-            <!-- Форма Входа -->
-            <div id="login-form">
-                <div class="form-group">
-                    <input type="text" id="login-username" placeholder="Имя пользователя" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="login-password" placeholder="Пароль" required>
-                </div>
-                <button onclick="loginUser()">Войти</button>
-            </div>
-
-            <!-- Форма Регистрации -->
-            <div id="register-form" class="hidden">
-                <div class="form-group">
-                    <input type="text" id="reg-username" placeholder="Имя пользователя" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="reg-password" placeholder="Пароль" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="reg-password2" placeholder="Повторите пароль" required>
-                </div>
-                <button onclick="registerUser()">Зарегистрироваться</button>
-            </div>
-
-            <button onclick="closeAuthModal()" class="close-btn">Закрыть</button>
+        <!-- ЛОГОТИП С.С.У -->
+        <div style="text-align: center; margin-bottom: 25px;">
+            <img src="/images/logo.png" alt="Эмблема С.С.У" style="width: 150px; height: auto; filter: drop-shadow(0 0 15px rgba(255,255,255,0.15));">
         </div>
+
+        <!-- ГЛАВНОЕ ПРИВЕТСТВИЕ -->
+        <h1>Вас приветствует <br>[🛑{с.с.у}🛑]!</h1>
+        <p class="subtitle">Мы — организация по защите ваших серверов и сайтов от любых сетевых угроз.</p>
+
+        <!-- ПРОСТОЕ И ПОНЯТНОЕ ОПИСАНИЕ -->
+        <div class="main-description">
+            <p>Если у вас есть свой проект, сайт или игровой сервер, вы наверняка сталкивались с проблемами: ломают админки, нападают читеры или проект просто падает из-за мощного дудоса. Наша команда создана как раз для того, чтобы решать эти проблемы быстро и насовсем.</p>
+            <p>Вам больше не придётся постоянно сидеть в консоли и следить за порядком. Мы берём всю техническую защиту на себя, закрываем уязвимости и настраиваем фильтрацию трафика, чтобы вы могли спокойно заниматься развитием своего проекта.</p>
+        </div>
+
+        <!-- КАРТОЧКИ УСЛУГ -->
+        <div class="features-grid" style="margin-top: 40px;">
+            <div class="feature-item">
+                <span class="icon">🛡️</span>
+                <h3>Защита на опережение</h3>
+                <p>Мы заранее находим слабые места в коде и настройках, исправляем их и закрываем доступ для злоумышленников ещё до того, как они попытаются вам навредить.</p>
+            </div>
+            <div class="feature-item">
+                <span class="icon">⚡</span>
+                <h3>Быстрая помощь</h3>
+                <p>Наши Мобильные Оперативные Группы всегда наготове. Если ваш сайт или сервер начнут дудосить, мы оперативно перехватим управление и заблокируем атаку в реальном времени.</p>
+            </div>
+            <div class="feature-item">
+                <span class="icon">🎯</span>
+                <h3>Полная очистка</h3>
+                <p>Проверяем все файлы, находим скрытые вирусы, вредоносные скрипты и лазейки. Полностью очищаем игровые серверы от софта читеров, возвращая стабильную работу.</p>
+            </div>
+        </div>
+
+        <!-- НИЖНИЙ БЛОК -->
+        <div class="call-to-action-block">
+            <p style="font-size: 18px; color: #b0c4de !important; margin-bottom: 20px;">Надоели постоянные атаки и лаги на сервере? Подберите оптимальный уровень защиты прямо сейчас.</p>
+            <a href="/tariffs.html" class="btn" style="padding: 14px 35px; font-size: 18px;">Посмотреть тарифы защиты</a>
+        </div>
+
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
