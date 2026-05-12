@@ -1,0 +1,201 @@
+body {
+    background-image: url('/images/111.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 140px 20px 40px 20px; /* Отступ сверху, чтобы контент не залезал под меню */
+}
+
+/* ==========================================================================
+   2. АБСОЛЮТНО ПРОЗРАЧНЫЙ КОНТЕНТНЫЙ БЛОК
+   ========================================================================== */
+.content-box {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    border: none;
+    padding: 20px;
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Крупный заголовок — строго белый с плотной тенью */
+h1 {
+    color: #ffffff !important;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 20px 0;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+/* Синий тактический подзаголовок для главной */
+.subtitle {
+    font-size: 22px;
+    color: #007bff !important;
+    font-weight: 600;
+    margin-bottom: 40px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Все обычные тексты — строго белые с тенью */
+p {
+    color: #ffffff !important;
+    font-size: 20px;
+    line-height: 1.6;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+    margin: 10px 0;
+}
+
+/* Текст курсивом над кнопками */
+.footer-note {
+    font-size: 18px;
+    color: #e5e5e5 !important;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   3. ФИКСИРОВАННОЕ ВЕРХНЕЕ МЕНЮ НАВИГАЦИИ
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7); /* Темная плашка меню для контраста */
+    backdrop-filter: blur(12px);
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Кнопки внутри меню */
+.nav-btn {
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Подсветка кнопок меню при наведении мыши */
+.nav-btn:hover {
+    background: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+}
+
+/* ==========================================================================
+   4. ТЕМНЫЕ ИНТЕРАКТИВНЫЕ КАРТОЧКИ (ДЛЯ ГЛАВНОЙ И СТРАНИЦЫ ЦЕЛЬ)
+   ========================================================================== */
+.features-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 40px 0;
+    text-align: left;
+}
+
+/* Карточка в стиле темного неонового стекла */
+.feature-item {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.55); /* Темный полупрозрачный фон, чтобы текст не сливался */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 25px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Эффект парения при наведении курсора */
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 123, 255, 0.5);
+    box-shadow: 0 5px 20px rgba(0, 123, 255, 0.25);
+}
+
+.feature-item .icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Заголовки внутри карточек — белые */
+.feature-item h3 {
+    color: #ffffff !important;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Текст внутри карточек */
+.feature-item p {
+    color: #e0e0e0 !important;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Синее выделение важных слов (Minecraft, SCP) внутри карточек */
+.feature-item strong {
+    color: #007bff !important;
+}
+
+/* ==========================================================================
+   5. СТИЛИ ДЛЯ СТРАНИЦЫ ТАРИФОВ И КНОПОК ДЕЙСТВИЯ
+   ========================================================================== */
+.tariff-list p {
+    margin: 20px 0;
+    font-size: 22px;
+}
+
+.tariff-list strong {
+    color: #007bff !important;
+    text-shadow: none;
+}
+
+/* Большая интерактивная синяя кнопка на страницах */
+.btn {
+    display: inline-block;
+    background: #007bff;
+    color: #ffffff !important;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    text-shadow: none;
+}
+
+.btn:hover {
+    background: #0056b3;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
+}
+.feature-item ul {
+    margin-top: 15px;
+    padding-left: 15px;
+}
+.feature-item li {
+    margin-bottom: 10px;
+    color: #d1d5db !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
